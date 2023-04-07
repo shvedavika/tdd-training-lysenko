@@ -9,20 +9,21 @@ const parse = (input) => {
   throw new Error(ERRORS.NOT_VALID_INPUT);
 };
 
+const validate = (inputs) => {
+  const EMPTY_STRING = '';
+  const isEmptyInput = inputs.length === 1 && inputs[0] === EMPTY_STRING;
+  if (isEmptyInput) {
+    return true;
+  }
+  const isFewEmptySeparators = inputs.includes(EMPTY_STRING);
+  return !isFewEmptySeparators;
+}
+
 const normalize = (inputs) => {
   return inputs
   .map(input => Number(input))
-  .filter(f => !isNaN(f));
+  .filter(convertedToNumber => !isNaN(convertedToNumber));
 };
-
-const validate = (inputs) => {
-  const isEmptyDataEntered = inputs.length === 1 && inputs[0] === '';
-  if (isEmptyDataEntered) {
-    return true;
-  }
-  const isWithEmptyString = inputs.includes('');
-  return !isWithEmptyString;
-}
 
 const sum = (inputs) => {
   const parsed = parse(inputs);
